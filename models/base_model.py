@@ -4,16 +4,23 @@
 from datetime import datetime
 from uuid import uuid4
 
+import models
+
 
 class BaseModel:
     """The base model for all the objects of the app"""
 
+    # from . import storage
     def __init__(self, *args, **kwargs):
         """Creates an object of the class"""
+        from . import storage
+        self.__class__.storage = storage
+
         if not len(kwargs):
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
+            storage.new(self)
             return
 
         for key, val in kwargs.items():
@@ -34,6 +41,8 @@ class BaseModel:
     def save(self):
         """Updates self.updated_at with the current datetime"""
         self.updated_at = datetime.now()
+        self.storage.new(self)
+        self.storage.save()
         pass
 
     def to_dict(self):
