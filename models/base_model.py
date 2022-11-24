@@ -8,12 +8,24 @@ from uuid import uuid4
 class BaseModel:
     """The base model for all the objects of the app"""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Creates an object of the class"""
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = self.created_at
-        print(self.created_at)
+        if not len(kwargs):
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = self.created_at
+            return
+
+        for key, val in kwargs.items():
+            if key == "__class__":
+                continue
+            elif key == "created_at":
+                self.created_at = datetime.fromisoformat(val)
+            elif key == "updated_at":
+                self.updated_at = datetime.fromisoformat(val)
+            else:
+                setattr(self, key, val)
+                # self.__setattr__(key, val)
 
     def __str__(self):
         """Returns the string representation of the object"""
