@@ -25,7 +25,6 @@ class BaseModel:
                 self.updated_at = datetime.fromisoformat(val)
             else:
                 setattr(self, key, val)
-                # self.__setattr__(key, val)
 
     def __str__(self):
         """Returns the string representation of the object"""
