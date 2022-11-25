@@ -80,7 +80,7 @@ class FileStorageTests(unittest.TestCase):
 
     def testSaveSelf(self):
         """ Check save self """
-        msg = "FileStorage.save() takes 1 positional argument but 2 were given"
+        msg = "save() takes 1 positional argument but 2 were given"
         with self.assertRaises(TypeError) as e:
             FileStorage.save(self, 100)
 
