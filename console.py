@@ -37,7 +37,7 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print('** class name missing **')
             return None
-        
+
         name = line.split()[0]
         if name not in classes:
             print("** class doesn't exist **")
@@ -81,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
                 name = cls.__name__
             else:
                 return None
-        all_list = [] 
+        all_list = []
         for obj in storage.all().values():
             if not name or name == obj.__class__.__name__:
                 all_list.append(str(obj))
@@ -131,13 +131,11 @@ class HBNBCommand(cmd.Cmd):
                     return None
                 val = line[idx1:idx2]
             obj = storage.all()[index]
-            attrib_type = type(getattr(obj, attr, None))
-            if attrib_type is type(None):
+            attrib_old = getattr(obj, attr, None)
+            if attrib_old is None:
                 attrib_type = str
-                # if attrib_type not in [str, int, float]:
-                #     return None
-                # setattr(obj, attr, attrib_type(val))
-                # setattr(obj, attr, val)
+            else:
+                attrib_type = type(attrib_old)
             if attrib_type not in [str, int, float]:
                 return None
             setattr(obj, attr, attrib_type(val))
