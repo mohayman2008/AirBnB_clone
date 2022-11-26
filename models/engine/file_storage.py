@@ -45,4 +45,11 @@ class FileStorage:
                 self.__objects[key] = obj
         except FileNotFoundError:
             return
+
+    def remove(self, index):
+        """Removes object corresponding <index> from the dictionaries of the
+        objects"""
+        del self.__objects[index]
+        del self.__objects_d[index]
+        self.save()
     pass
