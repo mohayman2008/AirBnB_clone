@@ -40,6 +40,7 @@ class FileStorage:
             with open(self.__file_path, 'r', encoding='utf-8') as f:
                 self.__objects_d = json.load(f)
 
+            self.__objects = {}
             for key, attributes in self.__objects_d.items():
                 obj = classes[attributes["__class__"]](**attributes)
                 self.__objects[key] = obj
