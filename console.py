@@ -67,6 +67,7 @@ class HBNBCommand(cmd.Cmd):
             my_model.save()
 
     def do_show(self, arg):
+        'Sows the list of classes'
         """ Prints the string representation of an instance
         based on the class name and id """
 
@@ -91,6 +92,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_destroy(self, arg):
+        'Destroys the instances'
         """ Deletes an instance based on the class name and id """
 
         if not arg:
@@ -116,6 +118,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_all(self, arg):
+        'prints all the instances'
         """ Prints all string representation of all instances
         based or not on the class name. """
 
@@ -137,6 +140,7 @@ class HBNBCommand(cmd.Cmd):
             print(list_instances)
 
     def do_update(self, arg):
+        'Do the updates for the instances'
         """ Updates an instance based on the class name and id
         by adding or updating attribute """
 
@@ -171,10 +175,12 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_quit(self, line):
+        'Quit command to exit the program'
         """ Quit command to exit the program """
         return True
 
     def do_EOF(self, line):
+        'Quit command to exit the program'
         """ EOF command to exit the program """
         return True
 
