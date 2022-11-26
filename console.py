@@ -12,11 +12,9 @@ class HBNBCommand(cmd.Cmd):
 
     def __init__(self, *args, **kwargs):
         """Initiate the console"""
+        self.prompt = '(hbnb) '
         if not sys.stdin.isatty():
-            self.prompt = ''
             self.use_rawinput = False
-        else:
-            self.prompt = '(hbnb) '
         cmd.Cmd.__init__(self)
 
     def do_EOF(self, line):

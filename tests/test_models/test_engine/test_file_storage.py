@@ -5,7 +5,9 @@ import unittest
 
 from models.engine import file_storage
 from models import storage
+from models.engine import classes
 FileStorage = file_storage.FileStorage
+
 
 class TestFileStorage(unittest.TestCase):
     """Tests for FileStorage class"""
@@ -26,6 +28,10 @@ class TestFileStorage(unittest.TestCase):
 
     def test_new(self):
         """Tests for the method new()"""
+        for name, cls in classes.items():
+            obj = cls()
+
+            # self.assertIn()
         pass
 
     pass
