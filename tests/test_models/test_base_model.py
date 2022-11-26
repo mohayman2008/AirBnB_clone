@@ -10,12 +10,12 @@ from models import storage
 
 
 class TestBaseModel(unittest.TestCase):
-    """The base model for all the objects of the app"""
+    """Tests for BaseModel class"""
 
     BaseClass = BaseModel
     TestClass = BaseModel
     class_name = "BaseModel"
-    attributes = [("id", str)]
+    attributes = []
 
     def test_dict_exists(self):
         """Tests for existance of __dict__ attribute"""
