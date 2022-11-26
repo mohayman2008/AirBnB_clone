@@ -131,13 +131,12 @@ class HBNBCommand(cmd.Cmd):
                     return None
                 val = line[idx1:idx2]
             obj = storage.all()[index]
-            if attr in obj.__dict__.keys():
-                attrib_type = type(obj.__dict__[attr])
+            attrib_type = type(getattr(obj, attr, None))
+            if attrib_type is type(None):
+                attrib_type = str
                 # if attrib_type not in [str, int, float]:
                 #     return None
                 # setattr(obj, attr, attrib_type(val))
-            else:
-                attrib_type = str
                 # setattr(obj, attr, val)
             if attrib_type not in [str, int, float]:
                 return None
