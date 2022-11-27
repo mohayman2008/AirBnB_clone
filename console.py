@@ -10,12 +10,24 @@ classes = engine.classes
 class HBNBCommand(cmd.Cmd):
     """The console class"""
 
+    l_c = ['create', 'show', 'update', 'all', 'destroy', 'count']
+
     def __init__(self, *args, **kwargs):
         """Initiate the console"""
         self.prompt = '(hbnb) '
         if not sys.stdin.isatty():
             self.use_rawinput = False
         cmd.Cmd.__init__(self)
+
+    def precmd(self, arg):
+        """parses command input"""
+        if '.' in arg and '(' in arg and ')' in arg:
+            cls = arg.split('.')
+            cnd = cls[1].split('(')
+            args = cnd[1].split(')')
+            if cls[0] in classes and cnd[0] in HBNBCommand.l_c:
+                arg = cnd[0] + ' ' + cls[0] + ' ' + args[0]
+        return arg
 
     def do_EOF(self, line):
         '''Exits the program'''
@@ -95,6 +107,16 @@ class HBNBCommand(cmd.Cmd):
             print(storage.all()[index])
         pass
 
+    def do_count(self, cls_name):
+        """ retrieve the number of instances of a class """
+        count = 0
+        all_objs = storage.all()
+        for k, v in all_objs.items():
+            clss = k.split('.')
+            if clss[0] == cls_name:
+                count = count + 1
+        print(count)
+
     def do_destroy(self, line):
         '''Command processor for command "destroy"'''
         args = line.split()
@@ -106,7 +128,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         '''Command processor for command "show"'''
-        args = line.split()
+        args = (',').join(line.split(', ')).split(',')
+        args = args[0].split() + args[1:]
         index = self.get_index(args)
 
         if index is None:
