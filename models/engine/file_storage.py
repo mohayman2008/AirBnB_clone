@@ -4,7 +4,7 @@ a file system storage"""
 
 import json
 
-# from . import classes
+from . import classes
 
 
 class FileStorage:
@@ -12,10 +12,6 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
     __objects_d = {}
-
-    def __init__(self):
-        """Constructor"""
-        from . import classes
 
     def all(self):
         """Returns a dictionary of all objects"""
@@ -34,8 +30,7 @@ class FileStorage:
     def save(self):
         """Serializes and saves objects to disk in JSON format"""
         with open(self.__file_path, 'w', encoding='utf-8') as f:
-            json.dump(self.__objects_d, f)
-            # json.dump(self.__objects_d, f, ensure_ascii=False)
+            json.dump(self.__objects_d, f, ensure_ascii=False)
         pass
 
     def reload(self):
@@ -48,9 +43,9 @@ class FileStorage:
                 self.__objects_d = json.load(f)
 
             for key, attributes in self.__objects_d.items():
-                obj = self.classes[attributes["__class__"]](**attributes)
+                obj = classes[attributes["__class__"]](**attributes)
                 self.__objects[key] = obj
-        except (FileNotFoundError, Exception):
+        except FileNotFoundError:
             return
 
     def remove(self, index):
