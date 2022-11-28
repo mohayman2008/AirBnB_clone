@@ -27,6 +27,16 @@ class HBNBCommand(cmd.Cmd):
             args = cnd[1].split(')')
             if cls[0] in classes and cnd[0] in HBNBCommand.l_c:
                 arg = cnd[0] + ' ' + cls[0] + ' ' + args[0]
+            else:
+                return arg
+            id_rest_of_args = args[0].split(',', 1)
+            if len(id_rest_of_args) < 2:
+                return arg
+            arg2 = id_rest_of_args[1].strip()
+            if arg2[0] == '{' and arg2[-1] == '}':
+                self.update_from_dict(cls[0], id_rest_of_args[0], arg2)
+                return ''
+
         return arg
 
     def do_EOF(self, line):
@@ -162,6 +172,20 @@ class HBNBCommand(cmd.Cmd):
             setattr(obj, attr, attrib_type(val))
             obj.save()
         pass
+
+    def update_from_dict(self, cls_name, id, attr_dict):
+        """Update attributes from dictionary"""
+        id = id.strip('\'"')
+        index = self.get_index([cls_name, id])
+        if index is None:
+            return None
+        updates = attr_dict[1:-1].split(',')
+
+        for update in updates:
+            key_val = update.strip().split(":")
+            name = key_val[0].strip().strip('\'"')
+            value = key_val[1].strip().strip('\'"')
+            self.do_update(f'{cls_name} {id} {name} {value}')
 
     def help_all(self):
         """Help function for do_show()"""
