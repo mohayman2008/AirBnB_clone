@@ -32,13 +32,28 @@ class TestConsole(unittest.TestCase):
         self.assertEqual(sys.stdout.getvalue(), '** class name missing **\n')
 
         sys.stdout = StringIO()
+        self.cmd.onecmd('create')
+        self.assertEqual(sys.stdout.getvalue(), '** class name missing **\n')
+
+        sys.stdout = StringIO()
         self.cmd.do_create('NoClass')
+        self.assertEqual(sys.stdout.getvalue(), "** class doesn't exist **\n")
+
+        sys.stdout = StringIO()
+        self.cmd.onecmd('create NoClass')
         self.assertEqual(sys.stdout.getvalue(), "** class doesn't exist **\n")
 
         for cls_name, cls in classes.items():
             self.remove_json()
             sys.stdout = StringIO()
             self.cmd.do_create(cls_name)
+            id = sys.stdout.getvalue()[:-1]
+            index = '.'.join((cls_name, id))
+            self.assertIn(index, storage.all().keys())
+            self.assertIsInstance(storage.all()[index], cls)
+
+            sys.stdout = StringIO()
+            self.cmd.onecmd(f'create {cls_name}')
             id = sys.stdout.getvalue()[:-1]
             index = '.'.join((cls_name, id))
             self.assertIn(index, storage.all().keys())
@@ -52,27 +67,27 @@ class TestConsole(unittest.TestCase):
         self.remove_json()
 
         sys.stdout = StringIO()
-        self.cmd.do_show('')
+        self.cmd.onecmd('show')
         self.assertEqual(sys.stdout.getvalue(), '** class name missing **\n')
 
         sys.stdout = StringIO()
-        self.cmd.do_show('NoClass')
+        self.cmd.onecmd('show NoClass')
         self.assertEqual(sys.stdout.getvalue(), "** class doesn't exist **\n")
 
         for cls_name, cls in classes.items():
             sys.stdout = StringIO()
-            self.cmd.do_show(cls_name)
+            self.cmd.onecmd(f'show {cls_name}')
             self.assertEqual(sys.stdout.getvalue(),
                              "** instance id missing **\n")
 
             sys.stdout = StringIO()
-            self.cmd.do_show(cls_name + ' ' + 'xyz')
+            self.cmd.onecmd(f'show {cls_name} xyz')
             self.assertEqual(sys.stdout.getvalue(),
                              "** no instance found **\n")
 
             obj = cls()
             sys.stdout = StringIO()
-            self.cmd.do_show(cls_name + ' ' + obj.id)
+            self.cmd.onecmd(f'show {cls_name} {obj.id}')
             index = '.'.join((cls_name, obj. id))
             self.assertEqual(sys.stdout.getvalue()[:-1], str(obj))
 
@@ -85,21 +100,21 @@ class TestConsole(unittest.TestCase):
         self.remove_json()
 
         sys.stdout = StringIO()
-        self.cmd.do_destroy('')
+        self.cmd.onecmd('destroy')
         self.assertEqual(sys.stdout.getvalue(), '** class name missing **\n')
 
         sys.stdout = StringIO()
-        self.cmd.do_destroy('NoClass')
+        self.cmd.onecmd('destroy NoClass')
         self.assertEqual(sys.stdout.getvalue(), "** class doesn't exist **\n")
 
         for cls_name, cls in classes.items():
             sys.stdout = StringIO()
-            self.cmd.do_destroy(cls_name)
+            self.cmd.onecmd(f'destroy {cls_name}')
             self.assertEqual(sys.stdout.getvalue(),
                              "** instance id missing **\n")
 
             sys.stdout = StringIO()
-            self.cmd.do_destroy(cls_name + ' ' + 'xyz')
+            self.cmd.onecmd(f'destroy {cls_name} xyz')
             self.assertEqual(sys.stdout.getvalue(),
                              "** no instance found **\n")
 
@@ -107,7 +122,7 @@ class TestConsole(unittest.TestCase):
             index = '.'.join((cls_name, obj. id))
             self.assertIn(index, storage.all().keys())
             # sys.stdout = StringIO()
-            self.cmd.do_destroy(cls_name + ' ' + obj.id)
+            self.cmd.onecmd(f'destroy {cls_name} {obj.id}')
             self.assertNotIn(index, storage.all().keys())
 
         self.remove_json()
@@ -119,17 +134,17 @@ class TestConsole(unittest.TestCase):
         self.remove_json()
 
         sys.stdout = StringIO()
-        self.cmd.do_all('')
+        self.cmd.onecmd('all')
         self.assertEqual(sys.stdout.getvalue()[:-1], '[]')
 
         sys.stdout = StringIO()
-        self.cmd.do_all('NoClass')
+        self.cmd.onecmd('all NoClass')
         self.assertEqual(sys.stdout.getvalue(), "** class doesn't exist **\n")
 
         for cls_name, cls in classes.items():
             self.remove_json()
             sys.stdout = StringIO()
-            self.cmd.do_all(cls_name)
+            self.cmd.onecmd(f'all {cls_name}')
             self.assertEqual(sys.stdout.getvalue()[:-1], '[]')
 
         all_objs = []
@@ -139,7 +154,7 @@ class TestConsole(unittest.TestCase):
             all_objs += objs
 
             sys.stdout = StringIO()
-            self.cmd.do_all(cls_name)
+            self.cmd.onecmd(f'all {cls_name}')
             out = sys.stdout.getvalue()[:-1]
             for obj in objs:
                 self.assertTrue(out.find(str(obj)) > 0)
@@ -147,7 +162,7 @@ class TestConsole(unittest.TestCase):
                 self.assertEqual(out[-1], ']')
 
         sys.stdout = StringIO()
-        self.cmd.do_all('')
+        self.cmd.onecmd('all')
         out = sys.stdout.getvalue()[:-1]
         for obj in all_objs:
             self.assertTrue(out.find(str(obj)) > 0)
@@ -163,21 +178,21 @@ class TestConsole(unittest.TestCase):
         self.remove_json()
 
         sys.stdout = StringIO()
-        self.cmd.do_update('')
+        self.cmd.onecmd('update')
         self.assertEqual(sys.stdout.getvalue(), '** class name missing **\n')
 
         sys.stdout = StringIO()
-        self.cmd.do_update('NoClass')
+        self.cmd.onecmd('update NoClass')
         self.assertEqual(sys.stdout.getvalue(), "** class doesn't exist **\n")
 
         for cls_name, cls in classes.items():
             sys.stdout = StringIO()
-            self.cmd.do_update(cls_name)
+            self.cmd.onecmd(f'update {cls_name}')
             self.assertEqual(sys.stdout.getvalue(),
                              "** instance id missing **\n")
 
             sys.stdout = StringIO()
-            self.cmd.do_update(cls_name + ' ' + 'xyz')
+            self.cmd.onecmd(f'update {cls_name} xyz')
             self.assertEqual(sys.stdout.getvalue(),
                              "** no instance found **\n")
 
@@ -185,18 +200,18 @@ class TestConsole(unittest.TestCase):
             cls_id = cls_name + ' ' + obj.id
 
             sys.stdout = StringIO()
-            self.cmd.do_update(cls_id)
+            self.cmd.onecmd(f'update {cls_id}')
             self.assertEqual(sys.stdout.getvalue()[:-1],
                              "** attribute name missing **")
 
             sys.stdout = StringIO()
-            self.cmd.do_update(cls_id + ' ' + 'attrib')
+            self.cmd.onecmd(f'update {cls_id} attrib')
             self.assertEqual(sys.stdout.getvalue()[:-1],
                              "** value missing **")
 
             index = '.'.join((cls_name, obj. id))
             # sys.stdout = StringIO()
-            self.cmd.do_update(f'{cls_id} name value')
+            self.cmd.onecmd(f'update {cls_id} name value')
             self.assertEqual(obj.name, 'value')
             self.assertIn('name', obj.to_dict())
 
