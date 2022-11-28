@@ -9,6 +9,7 @@ from ..amenity import Amenity
 from ..place import Place
 from ..review import Review
 
+
 classes = {"BaseModel": BaseModel, "User": User, "State": State, "City": City,
            "Amenity": Amenity, "Place": Place, "Review": Review}
 

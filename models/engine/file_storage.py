@@ -30,7 +30,8 @@ class FileStorage:
     def save(self):
         """Serializes and saves objects to disk in JSON format"""
         with open(self.__file_path, 'w', encoding='utf-8') as f:
-            json.dump(self.__objects_d, f, ensure_ascii=False)
+            json.dump(self.__objects_d, f)
+            # json.dump(self.__objects_d, f, ensure_ascii=False)
         pass
 
     def reload(self):
@@ -45,7 +46,7 @@ class FileStorage:
             for key, attributes in self.__objects_d.items():
                 obj = classes[attributes["__class__"]](**attributes)
                 self.__objects[key] = obj
-        except FileNotFoundError:
+        except (FileNotFoundError, Exception):
             return
 
     def remove(self, index):

@@ -5,7 +5,8 @@ from datetime import datetime
 from uuid import uuid4
 
 import models
-# from . import storage
+# storage = ''
+
 
 class BaseModel:
     """The base model for all the objects of the app"""
