@@ -9,7 +9,7 @@ from . import classes
 
 class FileStorage:
     """Class for managing file system storage"""
-    __file_path = "data.json"
+    __file_path = "file.json"
     __objects = {}
     __objects_d = {}
 
