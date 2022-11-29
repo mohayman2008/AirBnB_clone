@@ -180,12 +180,22 @@ class HBNBCommand(cmd.Cmd):
         if index is None:
             return None
         updates = attr_dict[1:-1].split(',')
+        if not updates:
+            print('** attribute name missing **')
+            return None
 
         for update in updates:
             key_val = update.strip().split(":")
+            if not update or key_val[0] == '':
+                print('** attribute name missing **')
+                return None
+            if len(key_val) < 2 or key_val[1] == '':
+                print('** value missing **')
+                return None
+
             name = key_val[0].strip().strip('\'"')
             value = key_val[1].strip().strip('\'"')
-            self.do_update(f'{cls_name} {id} {name} {value}')
+            self.do_update(f'{cls_name} {id} {name} "{value}"')
 
     def help_all(self):
         """Help function for do_show()"""
