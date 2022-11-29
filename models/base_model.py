@@ -14,13 +14,14 @@ class BaseModel:
     # from . import storage
     def __init__(self, *args, **kwargs):
         """Creates an object of the class"""
-        from . import storage
-        self.__class__.storage = storage
 
         if not len(kwargs):
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
+
+            from . import storage
+            self.__class__.storage = storage
             storage.new(self)
             return
 

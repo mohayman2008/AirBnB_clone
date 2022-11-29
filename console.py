@@ -95,26 +95,6 @@ class HBNBCommand(cmd.Cmd):
             line = f'{_cmd} {cls_name}{args}'
             return cmd.Cmd.onecmd(self, line)
 
-        '''
-        if '.' in arg and '(' in arg and ')' in arg:
-            cls = arg.split('.')
-            cnd = cls[1].split('(')
-            args = cnd[1].split(')')
-            if cls[0] in classes and cnd[0] in HBNBCommand.l_c:
-                arg = cnd[0] + ' ' + cls[0] + ' ' + args[0]
-            else:
-                return arg
-            id_rest_of_args = args[0].split(',', 1)
-            if len(id_rest_of_args) < 2:
-                return arg
-            arg2 = id_rest_of_args[1].strip()
-            if arg2[0] == '{' and arg2[-1] == '}':
-                self.update_from_dict(cls[0], id_rest_of_args[0], arg2)
-                return ''
-
-        return arg
-        '''
-
     def do_EOF(self, line):
         '''Exits the program'''
         print('')
