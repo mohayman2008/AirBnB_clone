@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """This module implements the console interpreter"""
 import cmd
+import re
 import sys
 
 from models import engine, storage
@@ -18,9 +19,83 @@ class HBNBCommand(cmd.Cmd):
         if not sys.stdin.isatty():
             self.use_rawinput = False
         cmd.Cmd.__init__(self)
+        self.fmt_re = re.compile(r'^[A-Za-z]*\.\w+(.*)$')
 
-    def precmd(self, arg):
-        """parses command input"""
+    def parse_args(self, line, delimiters=None, enclosings=None):
+        """Parse comma separated string of arguments"""
+        if enclosings is None:
+            enclosings = {"'": "'", '"': '"', '{': '}'}
+        if delimiters is None:
+            delimiters = ' ,\r\n\t'
+
+        line = line.strip(delimiters)
+        args = []
+        begin = end = 0
+        i, n = 0, len(line)
+        while i < n:
+            char = line[i]
+            if char in enclosings.keys():
+                end = begin = i
+                endx = i - 1
+                i += 1
+                while i < n and line[i] != enclosings[char]:
+                    if line[i] in delimiters and endx < begin:
+                        endx = i
+                    end = i
+                    i += 1
+                if i < n and line[i] == enclosings[char]:
+                    end += 1
+                    i += 1
+                    args.append(line[begin:end + 1])
+                else:
+                    args.append(line[begin:endx])
+                    i = endx
+            elif char in delimiters:
+                while i < n and line[i] in delimiters:
+                    i += 1
+            else:
+                begin = i
+                while i < n and line[i] not in delimiters:
+                    end = i
+                    i += 1
+                args.append(line[begin:end + 1])
+        return args
+
+    def onecmd(self, line):
+        """Parses a command line"""
+        line = line.strip()
+        if self.fmt_re.match(line) is None:
+            return cmd.Cmd.onecmd(self, line)
+        else:
+            # Spliting the line arround '.'
+            line_split = line.split('.', 1)
+            cls_name = line_split[0]
+            rest_line_split = line_split[1][:-1].split('(', 1)
+            _cmd = rest_line_split[0]
+            args = rest_line_split[1].strip()
+            args_l = self.parse_args(args)
+
+            id = ''
+            args = ''
+            if args_l:
+                id = args_l[0]
+            if len(args_l) > 1:
+                args = ' '.join(args_l[1:])
+
+            if _cmd != 'update' or len(args_l) < 2:
+                pass
+            elif args_l[1][0] == '{' and args_l[1][-1] == '}':
+                return self.update_from_dict(cls_name, id, args_l[1])
+
+            if args:
+                args = ' ' + args
+            if id:
+                args = ' ' + id + args
+
+            line = f'{_cmd} {cls_name}{args}'
+            return cmd.Cmd.onecmd(self, line)
+
+        '''
         if '.' in arg and '(' in arg and ')' in arg:
             cls = arg.split('.')
             cnd = cls[1].split('(')
@@ -38,6 +113,7 @@ class HBNBCommand(cmd.Cmd):
                 return ''
 
         return arg
+        '''
 
     def do_EOF(self, line):
         '''Exits the program'''
@@ -117,13 +193,15 @@ class HBNBCommand(cmd.Cmd):
             print(storage.all()[index])
         pass
 
-    def do_count(self, cls_name):
+    def do_count(self, line):
         """ retrieve the number of instances of a class """
+        cls = self.get_class(line)
+        if not cls:
+            return None
+
         count = 0
-        all_objs = storage.all()
-        for k, v in all_objs.items():
-            clss = k.split('.')
-            if clss[0] == cls_name:
+        for obj in storage.all().values():
+            if isinstance(obj, cls):
                 count = count + 1
         print(count)
 

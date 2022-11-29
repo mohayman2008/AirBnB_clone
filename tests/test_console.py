@@ -24,10 +24,9 @@ class TestConsole(unittest.TestCase):
         if storage.all():
             storage.reload()
 
-    def execute(self, cmd_line):
+    def execute(self, line):
         '''Executes a command line'''
         sys.stdout = StringIO()
-        line = self.cmd.precmd(cmd_line)
         self.cmd.onecmd(line)
 
     def test_cls_name(self):
@@ -41,23 +40,23 @@ class TestConsole(unittest.TestCase):
             self.execute(command)
             self.assertEqual(sys.stdout.getvalue()[:-1], cls_missing)
 
-            # self.execute(f'.{command}()')
-            # self.assertEqual(sys.stdout.getvalue()[:-1], cls_missing)
+            self.execute(f'.{command}()')
+            self.assertEqual(sys.stdout.getvalue()[:-1], cls_missing)
 
             self.execute(f'{command} NoClass')
             self.assertEqual(sys.stdout.getvalue()[:-1], cls_not_found)
 
-            # self.execute(f'NoClass.{command}()')
-            # self.assertEqual(sys.stdout.getvalue()[:-1], cls_not_fount)
+            self.execute(f'NoClass.{command}()')
+            self.assertEqual(sys.stdout.getvalue()[:-1], cls_not_found)
 
         self.execute(f'all NoClass')
         self.assertEqual(sys.stdout.getvalue()[:-1], cls_not_found)
 
-        # self.execute(f'NoClass.all()')
-        # self.assertEqual(sys.stdout.getvalue()[:-1], cls_not_found)
+        self.execute(f'NoClass.all()')
+        self.assertEqual(sys.stdout.getvalue()[:-1], cls_not_found)
 
-        # self.execute(f'NoClass.count()')
-        # self.assertEqual(sys.stdout.getvalue()[:-1], cls_not_found)
+        self.execute(f'NoClass.count()')
+        self.assertEqual(sys.stdout.getvalue()[:-1], cls_not_found)
 
         for do_cmd in (self.cmd.do_create, self.cmd.do_destroy,
                        self.cmd.do_show, self.cmd.do_update):
@@ -73,9 +72,9 @@ class TestConsole(unittest.TestCase):
         self.cmd.do_all('NoClass')
         self.assertEqual(sys.stdout.getvalue()[:-1], cls_not_found)
 
-        # sys.stdout = StringIO()
-        # self.cmd.do_count('NoClass')
-        # self.assertEqual(sys.stdout.getvalue()[:-1], cls_not_found)
+        sys.stdout = StringIO()
+        self.cmd.do_count('NoClass')
+        self.assertEqual(sys.stdout.getvalue()[:-1], cls_not_found)
         pass
 
     def test_id(self):
@@ -321,21 +320,24 @@ class TestConsole(unittest.TestCase):
 
     def test_EOF(self):
         """Tests for <EOF> command"""
-        self.execute('EOF')
+        sys.stdout = StringIO()
+        HBNBCommand().onecmd('EOF')
         self.assertEqual(sys.stdout.getvalue(), '\n')
         sys.stdout = sys.__stdout__
         pass
 
     def test_quit(self):
         """Tests for <quit> command"""
-        self.execute('quit')
+        sys.stdout = StringIO()
+        HBNBCommand().onecmd('quit')
         self.assertEqual(sys.stdout.getvalue(), '')
         sys.stdout = sys.__stdout__
         pass
 
     def test_blank_line(self):
         """Tests for blank lines"""
-        self.execute('')
+        sys.stdout = StringIO()
+        HBNBCommand().onecmd('')
         self.assertEqual(sys.stdout.getvalue(), '')
         sys.stdout = sys.__stdout__
         pass
