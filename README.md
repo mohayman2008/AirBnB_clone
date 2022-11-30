@@ -1,5 +1,5 @@
 <h1>AirBnB clone</h1>
-<img src="https://user-images.githubusercontent.com/72982296/204091021-23e47660-fb65-432e-bfd0-a10d8b4c7448.png" alt="AirBnB logo" loading="lazy" width = 600px height = 230px style="">
+<img src="https://user-images.githubusercontent.com/72982296/204091021-23e47660-fb65-432e-bfd0-a10d8b4c7448.png" alt="AirBnB logo" loading="lazy" style="width: 600px; height: auto;">
 <h2>Project Description</h2>
 <p>
 &emsp;&emsp;AirBnB web application clone is part of ALX SE programme. It's built on multiple steps
