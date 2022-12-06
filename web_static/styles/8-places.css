@@ -91,3 +91,7 @@ div.information div .icon{
     width: 50px;
     background-image: url("../images/icon_bath.png");
 }
+
+.user, .description {
+    padding: 10px 0;
+}
