@@ -1,0 +1,16 @@
+header {
+    background-color: #ffffff;
+    height: 70px;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+    /* logo align on left and center vertically (20px space at the left)*/
+}
+
+header .logo {
+    float: left;
+    height: 60px;
+    width: 142px;
+    margin-left: 20px;
+    vertical-align: middle;
+    background-image: url("../images/logo.png");
+}
