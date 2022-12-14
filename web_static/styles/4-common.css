@@ -6,9 +6,16 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
+
 body {
+    position: relative;
     display: flex;
     flex-direction: column;
+    min-height: 100%;
     margin: 0;
     padding: 0;
     color: #484848;
@@ -22,6 +29,7 @@ body {
 
 .container {
     max-width: 1000px;
+    width: 96%;
     margin: 30px auto;
 }
 
