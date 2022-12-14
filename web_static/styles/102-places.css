@@ -56,6 +56,7 @@ section.places h1 {
     flex-direction: row;
     justify-content: center;
     padding: 5px 0px;
+    width: 100%;
     height: 80px;
     border-top: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
@@ -156,10 +157,58 @@ div.information div .icon{
     padding: 0;
     margin: 0;
     font-size: 14px;
+    word-wrap: break-word;
 }
 
 .places article .reviews li p {
     margin: 0;
     padding-top: 4px;
     font-size: 12px;
+}
+
+
+@media screen and (max-width: 600px){
+    .places article .price_by_night {
+        min-width: 60px;
+        height: 60px;
+        line-height: 52px;
+        font-size: 24px;
+        text-align: center;
+        align-self: flex-end;
+        margin-right: -10px;
+        margin-top: -4px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .places article {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        max-width: 390px;
+        padding: 5px;
+        margin: 5px;
+        border: 1px solid #FF5A5F;
+        border-radius: 4px;
+    }
+
+    .places article .price_by_night {
+        min-width: 50px;
+        height: 50px;
+        line-height: 42px;
+        font-size: 20px;
+        text-align: center;
+        align-self: flex-end;
+        margin-right: 4px;
+        margin-top: 8px;
+    }
+
+    .max_guest,
+    .number_rooms,
+    .number_bathrooms{
+        min-width: 50px;
+        max-width: 100px;
+        height: auto;
+        font-size: 10px;
+    }
 }
