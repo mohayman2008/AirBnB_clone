@@ -32,7 +32,8 @@ class FileStorage:
         '''Adds 'obj' to '__objects' dictionary with the key
         '<obj class name>.id'
         '''
-        self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
+        __class__.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
+        self.save()
 
     def save(self):
         '''Serializes '__objects' dictionary to JSON and stores it to
@@ -50,13 +51,12 @@ class FileStorage:
         JSON form of the <objects> dictionary, deserialize it and
         assign the created dictionary to <__objects>
         '''
-
+        __class__.__objects = {}
         if not os.path.exists(self.__file_path):
             return None
 
         with open(self.__file_path, 'r', encoding='utf8') as f:
             objects = json.load(f)
-        self.__objects = {}
         for key, dict_form in objects.items():
             cls_name = dict_form["__class__"]
             self.__objects[key] = globals()[cls_name](**dict_form)

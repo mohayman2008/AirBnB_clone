@@ -47,12 +47,13 @@ class TestFileStorage(unittest.TestCase):
 
         for name, cls in classes.items():
             obj = cls()
-            index = f'{cls.__name__}.{obj.id}'
-            # self.assertIn(index, self.storage.all().keys())
-            # self.assertIn(index, FileStorage._FileStorage__objects.keys())
 
-            # self.assertIs(self.storage.all()[index], obj)
-            # self.assertIs(FileStorage._FileStorage__objects[index], obj)
+            index = f'{cls.__name__}.{obj.id}'
+            self.assertIn(index, self.storage.all().keys())
+            self.assertIn(index, FileStorage._FileStorage__objects.keys())
+
+            self.assertIs(self.storage.all()[index], obj)
+            self.assertIs(FileStorage._FileStorage__objects[index], obj)
         pass
 
     def test_save_reload(self):
@@ -70,10 +71,10 @@ class TestFileStorage(unittest.TestCase):
 
             index = f'{cls.__name__}.{obj.id}'
             self.assertIn(index, self.storage.all().keys())
-            # self.assertIn(index, FileStorage._FileStorage__objects.keys())
+            self.assertIn(index, FileStorage._FileStorage__objects.keys())
 
             self.assertIsNot(self.storage.all()[index], obj)
-            # self.assertIsNot(FileStorage._FileStorage__objects[index], obj)
+            self.assertIsNot(FileStorage._FileStorage__objects[index], obj)
 
             self.remove_json()
         pass

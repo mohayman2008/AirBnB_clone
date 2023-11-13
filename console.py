@@ -96,7 +96,6 @@ class HBNBCommand(cmd.Cmd):
             line = f'{_cmd} {cls_name}{args}'
             return cmd.Cmd.onecmd(self, line)
 
-
     def do_quit(self, line):
         '''\tquit: exits the program'''
         return True
@@ -182,7 +181,7 @@ class HBNBCommand(cmd.Cmd):
             cls_name = self.check_class(line, check_len=False)
             if not cls_name:
                 return
-            
+
             obj_list = []
             for key, val in storage.all().items():
                 if key.split('.')[0] == cls_name:
@@ -194,7 +193,7 @@ class HBNBCommand(cmd.Cmd):
         print(obj_list)
 
     def do_update(self, line):
-        '''\tupdate: Updates an instance based on the class name and id by 
+        '''\tupdate: Updates an instance based on the class name and id by
         \tadding or updating attribute and save the change into the storage
         \tengine'''
         key = self.check_class_id(line)
