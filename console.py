@@ -109,6 +109,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         '''\tEOF (CTRL+D) command to exit the program'''
+        print('')
         return True
 
     def emptyline(self):
@@ -241,7 +242,7 @@ class HBNBCommand(cmd.Cmd):
     def update_from_dict(self, cls_name, id, attr_dict):
         """Update attributes from dictionary"""
         id = id.strip('\'"')
-        key = self.check_class_id(cls_name + id)
+        key = self.check_class_id(cls_name + ' ' + id)
         if key is None:
             return None
         updates = attr_dict[1:-1].split(',')
@@ -261,6 +262,18 @@ class HBNBCommand(cmd.Cmd):
             name = key_val[0].strip().strip('\'"')
             value = key_val[1].strip().strip('\'"')
             self.do_update(f'{cls_name} {id} {name} "{value}"')
+
+    def do_count(self, line):
+        """ retrieve the number of instances of a class """
+        cls_name = self.check_class(line)
+        if cls_name:
+            cls = classes[cls_name]
+
+            count = 0
+            for obj in storage.all().values():
+                if isinstance(obj, cls):
+                    count = count + 1
+            print(count)
 
 
 if __name__ == '__main__':
