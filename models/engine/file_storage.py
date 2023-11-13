@@ -6,6 +6,12 @@ import json
 import os
 
 from ..base_model import BaseModel
+from ..user import User
+from ..state import State
+from ..city import City
+from ..amenity import Amenity
+from ..place import Place
+from ..review import Review
 
 
 class FileStorage:
@@ -20,7 +26,7 @@ class FileStorage:
 
     def all(self):
         '''Returns a copy of <__objects> dictionary'''
-        return self.__objects.copy()
+        return self.__objects
 
     def new(self, obj):
         '''Adds 'obj' to '__objects' dictionary with the key
@@ -50,6 +56,7 @@ class FileStorage:
 
         with open(self.__file_path, 'r', encoding='utf8') as f:
             objects = json.load(f)
+        self.__objects = {}
         for key, dict_form in objects.items():
             cls_name = dict_form["__class__"]
             self.__objects[key] = globals()[cls_name](**dict_form)
