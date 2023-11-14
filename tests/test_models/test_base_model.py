@@ -88,14 +88,45 @@ class TestBaseModel(unittest.TestCase):
         self.assertRegex(str1, str_regex.format(self.TestClass.__name__,
                                                 obj1.id))
 
-    def test_save(self):
-        '''Testing to_dict(self) method'''
-        obj1 = self.TestClass()
-        old_updated_at = obj1.updated_at
-        obj1.save()
-        self.assertNotEqual(obj1.updated_at, old_updated_at)
-        self.assertIn(f"{obj1.__class__.__name__}.{obj1.id}",
-                      storage.all().keys())
+    # def test_save(self):
+    #     '''Testing save(self) method'''
+    #     obj1 = self.TestClass()
+    #     old_updated_at = obj1.updated_at
+    #     obj1.save()
+    #     self.assertNotEqual(obj1.updated_at, old_updated_at)
+    #     self.assertIn(f"{obj1.__class__.__name__}.{obj1.id}",
+    #                   storage.all().keys())
+
+    def test_save_reload(self):
+        """Test saving and reloading"""
+        obj = self.TestClass()
+        updated_at_old = obj.updated_at
+        obj.save()
+        self.assertNotEqual(updated_at_old, obj.updated_at)
+        index = self.TestClass.__name__ + '.' + obj.id
+        self.assertEqual(obj.updated_at, storage.all()[index].updated_at)
+
+        storage.reload()
+        self.assertIn(index, storage.all())
+        obj_reloaded = storage.all()[index]
+
+        self.assertIsInstance(obj_reloaded, BaseModel)
+        self.assertIsInstance(obj_reloaded, self.TestClass)
+        self.assertIsInstance(obj_reloaded.created_at, datetime)
+        self.assertIsInstance(obj_reloaded.updated_at, datetime)
+        self.assertIsInstance(obj_reloaded.id, str)
+
+        self.assertEqual(obj.__dict__, obj_reloaded.__dict__)
+        self.assertEqual(obj.id, obj_reloaded.id)
+        self.assertEqual(obj.created_at, obj_reloaded.created_at)
+        self.assertEqual(obj.updated_at, obj_reloaded.updated_at)
+
+        self.assertIsNot(obj, obj_reloaded)
+
+        for name, typ in self.attributes:
+            self.assertEqual(getattr(obj, name), getattr(obj_reloaded, name))
+            self.assertIsInstance(getattr(obj_reloaded, name),
+                                  type(getattr(obj, name)))
 
     def test_class_attributes(self):
         '''Testing class attributes'''
