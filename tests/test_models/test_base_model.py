@@ -103,4 +103,3 @@ class TestBaseModel(unittest.TestCase):
             self.assertIn(attr_name, dir(self.TestClass))
             self.assertIsInstance(getattr(self.TestClass, attr_name),
                                   attr_type)
-        
