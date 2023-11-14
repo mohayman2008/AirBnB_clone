@@ -10,7 +10,6 @@ from models.user import User
 class TestUser(test_base_model.TestBaseModel):
     """Tests for User class"""
 
-    # BaseClass = test_base_model.BaseModel
     TestClass = User
     class_name = "User"
     attributes = [("email", str), ("password", str), ("first_name", str),

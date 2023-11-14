@@ -6,12 +6,14 @@ import unittest
 import uuid
 
 from models.base_model import BaseModel
+from models import storage
 
 
 class TestBaseModel(unittest.TestCase):
     '''TestCase class for the BaseModel class or a child class
     '''
     TestClass = BaseModel
+    attributes = ()
 
     def test_init(self):
         '''Testing initialization of a BaseModel object'''
@@ -92,3 +94,13 @@ class TestBaseModel(unittest.TestCase):
         old_updated_at = obj1.updated_at
         obj1.save()
         self.assertNotEqual(obj1.updated_at, old_updated_at)
+        self.assertIn(f"{obj1.__class__.__name__}.{obj1.id}",
+                      storage.all().keys())
+
+    def test_class_attributes(self):
+        '''Testing class attributes'''
+        for attr_name, attr_type in self.attributes:
+            self.assertIn(attr_name, dir(self.TestClass))
+            self.assertIsInstance(getattr(self.TestClass, attr_name),
+                                  attr_type)
+        
