@@ -342,11 +342,14 @@ class TestConsole(unittest.TestCase):
         sys.stdout = sys.__stdout__
         pass
 
-    # def test_help(self):
-    #     """Tests for <help> command"""
-    #     f = sys.stdout = StringIO()
-    #     HBNBCommand().onecmd('help quit')
-    #     self.assertEqual(f.getvalue()[:-1],
-    #                      '\n\tquit:\t\t\tExits the program\n')
-    #     pass
+    def test_help(self):
+        """Tests for <help> command"""
+        sys.stdout = StringIO()
+        HBNBCommand().onecmd('help')
+
+        self.assertIn("Documented commands (type help <topic>):",
+                      sys.stdout.getvalue()[:-1])
+
+        sys.stdout = sys.__stdout__
+        pass
     pass

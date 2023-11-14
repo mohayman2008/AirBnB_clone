@@ -33,7 +33,6 @@ class FileStorage:
         '<obj class name>.id'
         '''
         __class__.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
-        self.save()
 
     def save(self):
         '''Serializes '__objects' dictionary to JSON and stores it to
