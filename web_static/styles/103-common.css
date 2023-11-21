@@ -1,0 +1,42 @@
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    color: #484848;
+    font-size: 14px;
+    font-family: Circular, 
+                "Helvetica Neue",
+                Helvetica,
+                Arial,
+                sans-serif;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+.center {
+    text-align: center;
+}
+
+@media screen and (max-width: 400px) {
+    body {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 1032px) {
+    .container {
+        margin: 30px 16px;
+    }  
+}

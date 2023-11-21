@@ -1,0 +1,14 @@
+footer {
+    position: fixed;
+    bottom: 0;
+    background-color: #00FF00;
+    height: 60px;
+    width: 100%;
+}
+
+footer div {
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

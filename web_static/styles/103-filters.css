@@ -1,0 +1,144 @@
+.filters{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    height: 70px;
+    width: 100%;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+}
+
+.filters div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100%;
+    width: 25%;
+    padding-top: 15px;
+    margin: 0;
+    border-right: 1px solid  #DDDDDD;
+}
+
+.filters div+div {
+    border-right: none;
+}
+
+.filters div h3 {
+    margin: 0;
+    padding: 0 46px;
+    font-weight: 600;
+}
+
+.filters div h4 {
+    margin: 0;
+    padding: 0 46px;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+/*------*/
+.filters div ul {
+    list-style: none;
+    background-color: #FAFAFA;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-left: 23px;
+    padding-right: 23px;
+}
+
+.filters div ul.popover{
+    display: none;
+    margin-top: 18px;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.filters div:hover > ul.popover {
+    display: block;
+    z-index: 100;
+}
+
+.filters div ul.popover>li+li {
+    margin-top: 4%;
+}
+
+ul.popover li h2 {
+    margin: 0;
+    margin-bottom: 1%;
+    font-size: 16px;
+}
+
+.search-btn {
+    align-self: center;
+    margin-right: 30px;
+    margin-left: auto;
+    height: 48px;
+    width: 20%;
+    /* background-color: #FF5A5F; */
+    background-color: #AF1A1F;
+    border: 0px;
+    border-radius: 4px;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+
+.search-btn:hover {
+    opacity: 0.9;
+}
+
+@media screen and (max-width: 720px) {
+    .filters div h3 {
+        font-size: 14px;
+    }
+
+    .filters div h4 {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .filters {
+        flex-direction: column;
+        height: auto;
+        align-items: center;
+        width: 80%;
+        margin: auto;
+    }
+
+    .filters div {
+        width: 100%;
+        height: 70px;
+        align-items: center;
+        text-align: center;
+        border-right: none;
+        border-bottom: 1px solid  #DDDDDD; 
+    }
+
+    .filters div+div {
+        border-bottom: none;
+    }
+
+    .filters div h3,
+    .filters div h4 {
+        padding: 0 16px;
+    }
+
+    .filters div ul {
+        padding: 0 8px;
+    }
+
+    .search-btn {
+        align-self: center;
+        margin: auto;
+        margin-bottom: 10px;
+        height: 36px;
+        width: 40%;
+        font-size: 16px;
+    }
+}

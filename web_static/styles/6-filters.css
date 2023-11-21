@@ -1,0 +1,98 @@
+.filters {
+    position: relative;
+    height: 70px;
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+}
+
+.filters>div {
+    float: left;
+    height: 100%;
+    width: 25%;
+    border-right: 1px solid #DDDDDD;
+}
+
+.filters>div:hover>.popover {
+    display: block;
+    z-index: 100;
+}
+
+.filters>div:last-of-type {
+    border-right: none;
+}
+
+.filters>div h3,
+.filters>div h4 {
+    padding-right: 8%;
+    padding-left: 16%;
+}
+
+.filters>div h3 {
+    height: 50%;
+    padding-top: 7.5%;
+    padding-bottom: 0.5%;
+    font-weight: 600;
+}
+
+.filters>div h4 {
+    height: 50%;
+    padding-top: 0.5%;
+    padding-bottom: 7.5%;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.popover,
+.popover ul {
+    list-style: none;
+}
+
+.popover {
+    display: none;
+    position: relative;
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #FAFAFA;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+}
+
+.amenities>.popover>li,
+.locations>.popover ul>li {
+    padding: 1px 8% 1px 16%;
+}
+
+.locations>.popover>li {
+    padding-bottom: 12px;
+}
+
+.locations>.popover>li:last-child {
+    padding-bottom: 0;
+}
+
+.locations>.popover>li>h2 {
+    padding: 0px 8%;
+    font-size: 16px;
+}
+
+button.search {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 48px;
+    width: 20%;
+    float: right;
+    margin-right: 30px;
+    background-color: #FF5A5F;
+    border: 0;
+    border-radius: 4px;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+
+button.search:hover {
+    opacity: 90%;
+}

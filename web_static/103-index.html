@@ -1,0 +1,194 @@
+<!Doctype html>
+<html lang="EN">
+	<head>
+		<meta charset="utf-8">
+		<title>AirBnB Clone</title>
+		<link rel="icon" type="image/png" href="images/icon.png">
+		<link rel="stylesheet" href="styles/103-common.css">
+		<link rel="stylesheet" href="styles/103-header.css">
+		<link rel="stylesheet" href="styles/103-footer.css">
+		<link rel="stylesheet" href="styles/103-filters.css">
+		<link rel="stylesheet" href="styles/103-places.css">
+	</head>
+	<body>
+    <header aria-label="page header">
+      <div class="logo" role="img" aria-label="h b n b logo"></div>
+    </header>
+	
+    <div class="container">
+      <section class="filters" aria-label="search filters">
+        <div class="locations" aria-label="location filter">
+          <h3>States</h3>
+          <h4>Some Text!</h4>
+          <ul class="popover" aria-label="States list" aria-hidden="false">
+            <li>
+              <h2>State 1</h2>
+              <ul aria-label="Cities in State 1">
+                <li>City 1</li>
+                <li>City 2</li>
+              </ul>
+            </li>
+            <li>
+              <h2>State 2</h2>
+              <ul aria-label="Cities in State 1">
+                <li>City 3</li>
+                <li>City 4</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="amenities" aria-label="amenities filters">
+          <h3>Amenities</h3>
+          <h4>Some Text!</h4>
+          <ul class="popover" aria-label="Amenities list">
+            <li>Internet</li>
+            <li>TV</li>
+            <li>Pets friendly</li>
+            <li>Wifi</li>
+          </ul>
+        </div>
+        <button class="search-btn">Search</button>
+      </section>
+
+      <section class="places" aria-label="Available places">
+			  <h1 aria-hidden="true">Places</h1>
+			  <article aria-label="Place 1">
+          <h2>Studio</h2>
+          <div class="price_by_night" aria-label="Price per night">$80</div>
+          <div class="information" role="region" aria-label="property information">
+            <div class="max_guest">
+              <div class="icon" role="img" aria-label="Number of guests icon"></div>
+              <div class="center" aria-label="Number of guests">3 Guests</div>
+            </div>
+            <div class="number_rooms">
+              <div class="icon" role="img" aria-label="Number of rooms icon"></div>
+              <div class="center" aria-label="Number of rooms">3 Bedrooms</div>
+            </div>
+            <div class="number_bathrooms">
+              <div class="icon" role="img" aria-label="Number of bathrooms icon"></div>
+              <div class="center" aria-label="Number of bathrooms">2 Bathrooms</div>
+            </div>
+          </div>
+          <div class="user" aria-label="owner information"><strong>Owner: </strong>John Doe</div>
+          <div class="description" aria-label="description">Description for the place!</div>
+          <div class="amenities">
+            <h2>Amenities</h2>
+            <ul>
+              <li class="pets-friendly">Pets friendly</li>
+              <li class="wifi">WiFi</li>
+              <li class="tv">TV</li>
+            </ul>
+          </div>
+          <div class="reviews" aria-label="reviews">
+            <h2>3 Reviews</h2>
+            <ul>
+              <li aria-label="review 1">
+                <h3>From UserName the 27th January 2017</h3>
+                <p>My review is my review!</p>
+              </li>
+              <li aria-label="review 2">
+                <h3>From TheNameOfUser the 29th January 2022</h3>
+                <p>Their review is not my review!</p>
+              </li>
+              <li aria-label="review 3">
+                <h3>From User1234x the 31st December 2018</h3>
+                <p>I really liked the place and Loved the hostpitality and cleanliness.
+                  I will come again surly. Thank you user very much</p>
+              </li>
+            </ul>
+          </div>
+			  </article>
+
+        <article aria-label="Place 2">
+          <h2>Lake house</h2>
+          <div class="price_by_night" aria-label="Price per night">$80</div>
+          <div class="information" role="region" aria-label="property information">
+            <div class="max_guest">
+              <div class="icon" role="img" aria-label="Number of guests icon"></div>
+              <div class="center" aria-label="Number of guests">3 Guests</div>
+            </div>
+            <div class="number_rooms">
+              <div class="icon" role="img" aria-label="Number of rooms icon"></div>
+              <div class="center" aria-label="Number of rooms">3 Bedrooms</div>
+            </div>
+            <div class="number_bathrooms">
+              <div class="icon" role="img" aria-label="Number of bathrooms icon"></div>
+              <div class="center" aria-label="Number of bathrooms">2 Bathrooms</div>
+            </div>
+          </div>
+          <div class="user" aria-label="owner information"><strong>Owner: </strong>John Doe</div>
+          <div class="description" aria-label="description">Extensive description for the place is extensive description for the place 
+            and obviously you can see it. Again, Extensive description for the place is extensive description for the place 
+            and obviously you can see it. One more time, Extensive description for the place is extensive description for the place 
+            and obviously you can see it. For the last time, Extensive description for the place is extensive description for the place 
+            and obviously you can see it.
+          </div>
+          <div class="amenities">
+            <h2>Amenities</h2>
+            <ul>
+              <li class="pets-friendly">Pets friendly</li>
+              <li class="wifi">WiFi</li>
+            </ul>
+          </div>
+          <div class="reviews" aria-label="reviews">
+            <h2>2 Reviews</h2>
+            <ul>
+              <li aria-label="review 1">
+                <h3>From UserName the 27th January 2017</h3>
+                <p>My review is my review!</p>
+              </li>
+              <li aria-label="review 2">
+                <h3>From User1234x the 31st December 2018</h3>
+                <p>I really liked the place and Loved the hostpitality and cleanliness.
+                  I will come again surly. Thank you user very much</p>
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <article aria-label="Place 3">
+          <h2>Suite</h2>
+          <div class="price_by_night" aria-label="Price per night">$80</div>
+          <div class="information" role="region" aria-label="property information">
+            <div class="max_guest">
+              <div class="icon" role="img" aria-label="Number of guests icon"></div>
+              <div class="center" aria-label="Number of guests">3 Guests</div>
+            </div>
+            <div class="number_rooms">
+              <div class="icon" role="img" aria-label="Number of rooms icon"></div>
+              <div class="center" aria-label="Number of rooms">3 Bedrooms</div>
+            </div>
+            <div class="number_bathrooms">
+              <div class="icon" role="img" aria-label="Number of bathrooms icon"></div>
+              <div class="center" aria-label="Number of bathrooms">2 Bathrooms</div>
+            </div>
+          </div>
+          <div class="user" aria-label="owner information"><strong>Owner: </strong>John Doe</div>
+          <div class="description" aria-label="description">Description for the place!</div>
+          <div class="amenities">
+            <h2>Amenities</h2>
+            <ul>
+              <li class="pets-friendly">Pets friendly</li>
+              <li class="wifi">WiFi</li>
+              <li class="tv">TV</li>
+            </ul>
+          </div>
+          <div class="reviews" aria-label="reviews">
+            <h2>1 Review</h2>
+            <ul>
+              <li aria-label="review 1">
+                <h3>From UserName the 27th January 2017</h3>
+                <p>My review is my review!</p>
+              </li>
+            </ul>
+          </div>
+			  </article>
+			</section>
+    </div>
+	
+    <footer aria-label="page footer">
+      <span>Best School</span>
+    </footer>
+  </body>
+</html>
